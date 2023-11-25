@@ -28,4 +28,8 @@ public class LikeService {
         });
         return like;
     }
+
+    public void deleteLike(Long likeId) {
+        likeRepository.deleteById(likeId);
+    }
 }
