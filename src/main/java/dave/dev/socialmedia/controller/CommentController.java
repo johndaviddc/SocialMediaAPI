@@ -5,10 +5,7 @@ import dave.dev.socialmedia.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/comments")
@@ -21,5 +18,11 @@ public class CommentController {
         return commentService.getCommentById(commentId)
                 .map(comment -> new ResponseEntity<>(comment, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping("/apost/{postId}")
+    public ResponseEntity<Comment> addCommentToPost(@PathVariable Long postId, @RequestBody Comment comment) {
+        Comment addedComment = commentService.addCommentToPost(postId, comment);
+        return new ResponseEntity<>(addedComment, HttpStatus.CREATED);
     }
 }
