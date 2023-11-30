@@ -25,4 +25,10 @@ public class LikeController {
         Like addedLike = likeService.addLikeToPost(postId, like);
         return new ResponseEntity<>(addedLike, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{likeId}")
+    public ResponseEntity<Void> deleteLike(@PathVariable Long likeId) {
+        likeService.deleteLike(likeId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
